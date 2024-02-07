@@ -18,7 +18,7 @@
     <div class="container">
         <div class="card">
             <div class="card-header">
-                Creates
+                Create
             </div>
             <div class="card-body">
                 <blockquote class="blockquote mb-0">
