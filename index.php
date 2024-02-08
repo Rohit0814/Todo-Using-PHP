@@ -92,11 +92,11 @@
                         <form>
                             <div class="mb-3">
                                 <label for="exampleInputEmail1" class="form-label">Title</label>
-                                <input type="text" class="form-control" id="exampleInputEmail1" name="title" value="" aria-describedby="emailHelp">
+                                <input type="text" class="form-control" id="title"  name="title" value="" aria-describedby="emailHelp">
                             </div>
                             <div class="mb-3">
                                 <label for="exampleFormControlTextarea1" class="form-label">Description</label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" name="description" value="" rows="3"></textarea>
+                                <textarea class="form-control" id="description" name="description" value="" rows="3"></textarea>
                             </div>
                         </form>
                     </div>
@@ -117,13 +117,16 @@
 
 
         let updateData=document.getElementsByClassName('updateData');
-        updateData.forEach((ele) => {
-            ele.addEventListener('click',(event)=>{
-                let tr=event.target.parentNode.parentNode;
-                let title = tr.getElementsBtTagName("td")[0].innerHTML;
-                console.log(title);
+
+        for(let i=0;i<updateData.length;i++){
+            updateData[i].addEventListener('click',function(){
+                let tr=updateData[i].parentNode.parentNode;
+                let title=tr.getElementsByTagName('td')[0].innerHTML;
+                let desc=tr.getElementsByTagName('td')[1].innerHTML;
+                document.getElementById('title').value=title;
+                document.getElementById('description').value = desc;
             });
-        });
+        }
     </script>
 </body>
 
