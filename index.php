@@ -62,17 +62,19 @@
                 $conn = mysqli_connect($server_name, $user_name, $password, $database_name);
                 $sql = "select * from todo";
                 $result = mysqli_query($conn, $sql);
+                $dis_id=1;
                 while ($row = mysqli_fetch_assoc($result)) {
                     echo "<tr>
-            <th scope='row'>" . $row["id"] . "</th>
+            <td scope='row'>" . $dis_id . "</td>
             <td>" . $row["title"] . "</td>
             <td>" . $row["description"] . "</td>
             <td>" . $row["timeStamp"] . "</td>
             <td>
-              <button type='button' class='btn btn-primary updateData' data-bs-toggle='modal' data-bs-target='#exampleModal'>Update</button>
-              <button type='button' class='btn btn-danger'>Delete</button>
+              <a href='update.php' class='btn btn-primary updateData' data-bs-toggle='modal' data-bs-target='#exampleModal'>Update</a>
+              <a href='destroy.php?id=".$row["id"]."' type='button' class='btn btn-danger'>Delete</a>
           </td>
           </tr>";
+          $dis_id++;
                 }
 
                 mysqli_close($conn);
@@ -89,21 +91,22 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form>
+                        <form method="post" action="update.php">
                             <div class="mb-3">
                                 <label for="exampleInputEmail1" class="form-label">Title</label>
+                                <input type="hidden" id="hiddenId" name="hiddenId">
                                 <input type="text" class="form-control" id="title"  name="title" value="" aria-describedby="emailHelp">
                             </div>
                             <div class="mb-3">
                                 <label for="exampleFormControlTextarea1" class="form-label">Description</label>
                                 <textarea class="form-control" id="description" name="description" value="" rows="3"></textarea>
                             </div>
-                        </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Update</button>
+                        <button type="submit" class="btn btn-primary">Update</a>
                     </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -121,10 +124,12 @@
         for(let i=0;i<updateData.length;i++){
             updateData[i].addEventListener('click',function(){
                 let tr=updateData[i].parentNode.parentNode;
-                let title=tr.getElementsByTagName('td')[0].innerHTML;
-                let desc=tr.getElementsByTagName('td')[1].innerHTML;
+                let id=tr.getElementsByTagName('td')[0].innerHTML;
+                let title=tr.getElementsByTagName('td')[1].innerHTML;
+                let desc=tr.getElementsByTagName('td')[2].innerHTML;
                 document.getElementById('title').value=title;
                 document.getElementById('description').value = desc;
+                document.getElementById('hiddenId').value=id;
             });
         }
     </script>
